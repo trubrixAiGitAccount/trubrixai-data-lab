@@ -1,0 +1,81 @@
+Project Brief: Daily Portfolio Summary Report
+Document Version: 1.0
+Date: 2025-06-24
+Author: trubrixAi
+Project Code: CM-001
+
+1. Business Requirement & Vision
+1.1. Business Need:
+One of our key clients in the US Capital Markets sector requires an automated, end-of-day report. This report must provide a simple summary of the day's trading activity across their portfolios, specifically showing the total number of shares traded for each stock symbol.
+
+1.2. Project Vision:
+To create a reliable, automated data pipeline that ingests daily raw trade execution files, processes the data, and produces an accurate summary table. This pipeline will serve as the foundation for future, more complex portfolio analysis and reporting, demonstrating trubrixAi's capability to deliver high-quality data products.
+
+1.3. Key Stakeholders:
+
+Primary Consumer: Portfolio Management Team
+
+Secondary Consumer: Risk & Compliance Department
+
+2. Functional & Non-Functional Requirements
+2.1. Functional Requirements (What the system must do):
+
+FR-01: The system must ingest daily trade files in .csv format from a designated cloud storage location.
+
+FR-02: The system must parse each trade record, extracting key fields: trade_id, ticker, action (BUY/SELL), and quantity.
+
+FR-03: The system must correctly calculate the total number of shares traded for each unique stock ticker.
+
+FR-04: The final output must be a summary table containing ticker and total_traded_volume.
+
+FR-05: The system must maintain a full, auditable history of all raw trade files that are ingested.
+
+2.2. Non-Functional Requirements (How the system must perform):
+
+NFR-01 (Timeliness): The final summary report (Gold table) must be updated and available by 6:00 AM EST every business day.
+
+NFR-02 (Reliability): The automated job should have a success rate of >99%. Any failures must trigger an automated email alert to the support team.
+
+NFR-03 (Security): All data must be encrypted at rest and in transit. Access to sensitive data and credentials must be managed securely through Azure Key Vault.
+
+NFR-04 (Scalability): The pipeline must be able to handle an increase in trade volume of up to 5 million records per day without significant architectural changes.
+
+NFR-05 (Maintainability): All code must be version-controlled in a Git repository and be well-commented and documented.
+
+3. User Stories (Sprint 1)
+These are the specific tasks for our first development sprint. Our goal is to build a minimum viable product (MVP) of the pipeline.
+
+As a Data Engineer, I want to create an automated ingestion process so that the daily raw trade files are moved from a staging area to a historical bronze layer without modification.
+
+Acceptance Criteria: The 01_Ingest_Daily_Trades notebook successfully moves the daily file to the correct dated folder in the bronze container.
+
+As a Data Engineer, I want to read the raw trade data from the bronze layer and produce a clean, structured table in the silver layer so that the data is ready for analysis.
+
+Acceptance Criteria: The 02_Process_Trades_To_Silver notebook correctly reads the bronze data, handles basic data quality checks, and saves a clean Delta table.
+
+As a Data Analyst, I want to query the clean silver table and produce an aggregated summary table in the gold layer so that I have the final report showing total volume per ticker.
+
+Acceptance Criteria: The 03_Aggregate_Trade_Volume_Gold notebook correctly calculates the total traded volume and saves it to a gold Delta table.
+
+As a Platform Owner, I want to schedule the ingestion, silver, and gold notebooks in an automated workflow so that the entire pipeline runs daily without manual intervention.
+
+Acceptance Criteria: A Databricks Job is created that successfully runs the three notebooks in the correct sequence.
+
+4. Initial Project Plan (Sprint 1)
+Sprint Duration: 1 Week
+
+Resources: 1 Data Engineer (Lead)
+
+Timeline:
+
+Day 1: Set up Git repository, create project structure, develop and test ingestion notebook (User Story 1).
+
+Day 2: Develop and test Silver layer processing notebook (User Story 2).
+
+Day 3: Develop and test Gold layer aggregation notebook (User Story 3).
+
+Day 4: Build and test the automated Databricks Job/Workflow (User Story 4).
+
+Day 5: Final documentation, code review, and handover.
+
+This document now serves as our official blueprint. Our next step would be to create the repository and begin development on the first user story. This is a fantastic, professional way to start a project.
